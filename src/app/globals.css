@@ -120,3 +120,8 @@
     @apply bg-background text-foreground;
   }
 }
+
+.my-custom-input::placeholder {
+  color: #f7f4f4; /* Custom hex color */
+  opacity: 1; /* Ensure full opacity if needed */
+}

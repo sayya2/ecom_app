@@ -4,46 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { fonts } from "../../components/fonts";
+// import { fonts } from "../../components/fonts";
+import Image from "next/image";
 
-export default function login() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const res = await fetch("http://localhost:4000/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      // Save token (example: localStorage)
-      localStorage.setItem("token", data.token);
-      router.push("/");
-    } else {
-      const data = await res.json();
-      setError(data.message || "Login failed");
-    }
-  };
-
+const page = () => {
   return (
     <div className="relative w-full min-h-screen bg-white items-center">
       {/* Background SVG */}
@@ -61,11 +25,20 @@ export default function login() {
         </svg>
       </div>
 
+      <div className="absolute top-26 left-0 w-full h-[0em] flex justify-center items-center z-10">
+        <Image
+          src="/logo.png"
+          width={60} // adjust size as needed
+          height={60} // adjust size as needed
+          alt="Logo"
+        />
+      </div>
+
       {/* Centered Box */}
-      <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
-        <div className="relative w-[22.875rem] h-[30.688rem] bg-white shadow-xl rounded-xl flex-col">
+      <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-1">
+        <div className="relative w-[22.875rem] h-[30.688rem] bg-white shadow-2xl rounded-xl flex-col">
           <h1
-            className={`${fonts.cosima.className} font-semibold text-4xl text-zinc-900 text-center mt-24 antialiased`}
+            className={`font-bold text-4xl text-zinc-900 text-center mt-20 antialiased`}
           >
             SIGN IN
           </h1>
@@ -106,10 +79,8 @@ export default function login() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-[4.85rem]">
-        <p className={`${fonts.cosima.className} font-bold text-1xl `}>
-          Sign in With
-        </p>
+      <div className="flex justify-center mt-[4.85rem] z-10 ">
+        <p className={` font-bold text-1xl `}>Sign in With</p>
       </div>
       <div className="flex justify-center">
         <div className="flex justify-center mt-[0.6rem] gap-x-8 items-center">
@@ -129,4 +100,6 @@ export default function login() {
       </div>
     </div>
   );
-}
+};
+
+export default page;
